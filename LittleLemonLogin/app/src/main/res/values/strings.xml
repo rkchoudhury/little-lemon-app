@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Little Lemon Login</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+
+    <string name="little_lemon">Little Lemon</string>
+    <string name="chicago">Chicago</string>
+
+</resources>
