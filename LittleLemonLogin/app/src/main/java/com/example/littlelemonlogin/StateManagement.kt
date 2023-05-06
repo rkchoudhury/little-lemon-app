@@ -49,15 +49,15 @@ fun CityInput() {
 }
 
 // Saving the value using list for the configuration change
-val CitySaverList = listSaver<MainActivity.City, Any>(
+val CitySaverList = listSaver<City, Any>(
     save = { listOf(it.name, it.country) },
-    restore = { MainActivity.City(it[0] as String, it[1] as String) }
+    restore = { City(it[0] as String, it[1] as String) }
 )
 
 @Composable
 fun CountryTextInput() {
     var selectedCity by rememberSaveable(stateSaver = CitySaverList) {
-        mutableStateOf(MainActivity.City("Angul", "India"))
+        mutableStateOf(City("Angul", "India"))
     }
 
     Column(modifier = Modifier.padding(16.dp)) {
@@ -67,8 +67,8 @@ fun CountryTextInput() {
         )
         TextField(
             value = selectedCity.country,
-            onValueChange = { selectedCity = MainActivity.City(selectedCity.name, it) },
-            label = { Text(text = "City") }
+            onValueChange = { selectedCity = City(selectedCity.name, it) },
+            label = { Text(text = "Country") }
         )
     }
 }
