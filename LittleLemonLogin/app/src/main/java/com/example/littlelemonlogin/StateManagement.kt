@@ -13,8 +13,8 @@ import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlinx.parcelize.Parcelize
 
 data class City(val name: String, val country: String)
@@ -81,7 +81,11 @@ data class City1(val name: String, val state: String) : Parcelable
 
 @Composable
 fun StateInput() {
-    var selectedCity by rememberSaveable {
+//    var selectedCity by rememberSaveable {
+//        mutableStateOf(City1("Bangalore", "Spain"))
+//    }
+
+    val (selectedCity, setSelectedCity) = rememberSaveable {
         mutableStateOf(City1("Bangalore", "Spain"))
     }
 
@@ -92,7 +96,8 @@ fun StateInput() {
         )
         TextField(
             value = selectedCity.state,
-            onValueChange = { selectedCity = City1(selectedCity.name, it) },
+//            onValueChange = { selectedCity = City1(selectedCity.name, it) },
+            onValueChange = { setSelectedCity(City1(selectedCity.name, it)) },
             label = { Text(text = "State") }
         )
     }
