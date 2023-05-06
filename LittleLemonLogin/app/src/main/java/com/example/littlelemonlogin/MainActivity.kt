@@ -8,6 +8,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +29,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginScreen()
+                    Column() {
+                        LoginScreen()
+                        CityScreen()
+                        CityScreenList()
+                    }
                 }
             }
         }
@@ -78,5 +84,59 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun PreviewLoginScreen() {
         LoginScreen()
+    }
+
+    data class City(val name: String, val country: String)
+
+    val CitySaver = run {
+        val nameKey = "Name"
+        val countryKey = "Country"
+        mapSaver(
+            save = { mapOf(nameKey to it.name, countryKey to it.country) },
+            restore = { City(it[nameKey] as String, it[countryKey] as String) }
+        )
+    }
+
+    @Composable
+    fun CityScreen() {
+        var selectedCity by rememberSaveable(stateSaver = CitySaver) {
+            mutableStateOf(City("Madrid", "Spain"))
+        }
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Hello, ${selectedCity.name}",
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+            TextField(
+                value = selectedCity.name,
+                onValueChange = { selectedCity = City(it, selectedCity.country) },
+                label = { Text(text = "City") }
+            )
+        }
+    }
+
+    val CitySaver1 = listSaver<City, Any>(
+        save = { listOf(it.name, it.country) },
+        restore = { City(it[0] as String, it[1] as String) }
+    )
+
+    @Composable
+    fun CityScreenList() {
+        var selectedCity by rememberSaveable(stateSaver = CitySaver1) {
+            mutableStateOf(City("Angul", "Odisha"))
+        }
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Hello, ${selectedCity.country}",
+                modifier = Modifier.padding(bottom = 8.dp),
+            )
+            TextField(
+                value = selectedCity.country,
+                onValueChange = { selectedCity = City(selectedCity.name, it) },
+                label = { Text(text = "City") }
+            )
+        }
     }
 }
