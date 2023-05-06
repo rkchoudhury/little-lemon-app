@@ -1,5 +1,6 @@
 package com.example.littlelemonlogin
 
+import android.os.Parcelable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -14,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.parcelize.Parcelize
 
 data class City(val name: String, val country: String)
 
@@ -73,12 +75,36 @@ fun CountryTextInput() {
     }
 }
 
+// Saving the value by converting the data type to Parcelable for the configuration change
+@Parcelize
+data class City1(val name: String, val state: String) : Parcelable
+
+@Composable
+fun StateInput() {
+    var selectedCity by rememberSaveable {
+        mutableStateOf(City1("Bangalore", "Spain"))
+    }
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text(
+            text = "Hello, ${selectedCity.state}",
+            modifier = Modifier.padding(bottom = 8.dp),
+        )
+        TextField(
+            value = selectedCity.state,
+            onValueChange = { selectedCity = City1(selectedCity.name, it) },
+            label = { Text(text = "State") }
+        )
+    }
+}
+
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewCity() {
     Column {
         CityInput()
         CountryTextInput()
+        StateInput()
     }
 }
 
