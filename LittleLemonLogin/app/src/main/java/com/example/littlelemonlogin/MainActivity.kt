@@ -1,7 +1,9 @@
 package com.example.littlelemonlogin
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -15,7 +17,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.littlelemonlogin.ui.theme.LittleLemonLoginTheme
@@ -38,10 +42,9 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun LoginScreen() {
+        val context: Context = LocalContext.current
         var name by rememberSaveable { mutableStateOf("") }
         val (password, setPassword) = remember { mutableStateOf("") }
-
-        Log.d("RKK", "LoginScreen: " + name)
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,10 +65,11 @@ class MainActivity : ComponentActivity() {
                 value = password,
                 onValueChange = { setPassword(it) },
                 label = { Text(text = "Password") },
+                visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.padding(10.dp)
             )
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { handleLogin(context, name, password) },
                 colors = ButtonDefaults.buttonColors(
                     Color(0xFF495E57)
                 ),
@@ -76,6 +80,17 @@ class MainActivity : ComponentActivity() {
                     color = Color(0xFFEDEFEE)
                 )
             }
+        }
+    }
+
+    private fun handleLogin(context: Context, userName: String, password: String) {
+        Log.d("RKKK", "handleLogin: userName $userName ${userName == "raka"}")
+        Log.d("RKKK", "handleLogin: password $password ${password == "1234"}")
+        if (userName == "raka" && password == "1234") {
+            Toast.makeText(context, "Welcome to Little Lemon!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Invalid credentials. Please try again.", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
