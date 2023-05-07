@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
         val context: Context = LocalContext.current
         var name by rememberSaveable { mutableStateOf("") }
         val (password, setPassword) = remember { mutableStateOf("") }
+        val focusManager = LocalFocusManager.current
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,14 +62,18 @@ class MainActivity : ComponentActivity() {
                 value = name,
                 onValueChange = { name = it },
                 label = { Text(text = "Username") },
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(10.dp),
+                singleLine = true,
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
             )
             TextField(
                 value = password,
                 onValueChange = { setPassword(it) },
                 label = { Text(text = "Password") },
                 visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.padding(10.dp)
+                modifier = Modifier.padding(10.dp),
+                singleLine = true,
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
             )
             Button(
                 onClick = { handleLogin(context, name, password) },
