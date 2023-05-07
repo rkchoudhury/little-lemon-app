@@ -73,7 +73,10 @@ class MainActivity : ComponentActivity() {
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.padding(10.dp),
                 singleLine = true,
-                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+                keyboardActions = KeyboardActions(onDone = {
+                    focusManager.clearFocus()
+                    handleLogin(context, name, password)
+                })
             )
             Button(
                 onClick = { handleLogin(context, name, password) },
@@ -94,9 +97,9 @@ class MainActivity : ComponentActivity() {
         Log.d("RKKK", "handleLogin: userName $userName ${userName == "raka"}")
         Log.d("RKKK", "handleLogin: password $password ${password == "1234"}")
         if (userName == "raka" && password == "1234") {
-            Toast.makeText(context, "Welcome to Little Lemon!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.login_success, Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Invalid credentials. Please try again.", Toast.LENGTH_LONG)
+            Toast.makeText(context, R.string.invalid_credential, Toast.LENGTH_LONG)
                 .show()
         }
     }

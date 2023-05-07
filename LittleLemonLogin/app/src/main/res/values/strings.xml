@@ -5,4 +5,8 @@
     <string name="little_lemon">Little Lemon</string>
     <string name="chicago">Chicago</string>
 
+    <!-- Login screen strings -->
+    <string name="login_success">Welcome to Little Lemon!</string>
+    <string name="invalid_credential">Invalid credentials. Please try again.</string>
+
 </resources>
