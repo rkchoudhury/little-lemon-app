@@ -13,9 +13,9 @@
         android:theme="@style/Theme.LittleLemonLogin"
         tools:targetApi="31">
         <activity
-            android:name=".DashboardActivity"
+            android:name=".TestActivity"
             android:exported="true"
-            android:label="@string/title_activity_dashboard"
+            android:label="@string/title_activity_test"
             android:theme="@style/Theme.LittleLemonLogin">
 <!--                <intent-filter>-->
 <!--                    <action android:name="android.intent.action.MAIN" />-->
