@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Little Lemon Login</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_test">Test Screen</string>
 
     <string name="little_lemon">Little Lemon</string>
     <string name="chicago">Chicago</string>
+
+    <!-- Login screen strings -->
+    <string name="login_success">Welcome to Little Lemon!</string>
+    <string name="invalid_credential">Invalid credentials. Please try again.</string>
 
 </resources>
