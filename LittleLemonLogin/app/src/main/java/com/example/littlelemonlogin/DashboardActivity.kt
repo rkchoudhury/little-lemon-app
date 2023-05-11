@@ -5,7 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 
 class DashboardActivity : ComponentActivity() {
@@ -19,8 +22,13 @@ class DashboardActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen() {
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
     Scaffold(
-        topBar = { TopAppBar() }
+        scaffoldState = scaffoldState,
+        topBar = { TopAppBar(scaffoldState = scaffoldState, scope = scope) },
+        drawerContent = { DrawerPanel(scaffoldState = scaffoldState, scope = scope) }
     ) {
         Column {
             UpperPanel()
