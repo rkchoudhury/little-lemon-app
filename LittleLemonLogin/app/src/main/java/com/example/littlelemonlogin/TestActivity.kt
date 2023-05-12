@@ -39,6 +39,8 @@ class TestActivity : ComponentActivity() {
 //                        StateInput()
 //                    }
 
+                    //Orientation Changes
+//                    MenuContentView()
                 }
             }
         }
