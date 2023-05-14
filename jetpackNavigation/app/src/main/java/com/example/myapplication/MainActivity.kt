@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,6 +27,7 @@ fun AppNavigation() {
         }
         composable(MenuList.route) {
             MenuListScreen()
+//            Text(text = "rkkkkk") //This will be also visible in the screen/UI
         }
     }
 }
