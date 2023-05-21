@@ -10,4 +10,5 @@ object Home : Destinations {
 
 object MenuList : Destinations {
     override val route = "MenuList"
+    const val argOrderNo = "OrderNo"
 }

@@ -11,18 +11,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MenuListScreen() {
+fun MenuListScreen(orderNo: Int?) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Menu List", fontSize = 32.sp)
+        Text(text = "Menu List Order $orderNo", fontSize = 32.sp)
     }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewMenuLIst() {
-    MenuListScreen()
+    MenuListScreen(10)
 }

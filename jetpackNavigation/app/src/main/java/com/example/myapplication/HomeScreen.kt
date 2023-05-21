@@ -21,7 +21,7 @@ fun HomeScreen(navController: NavHostController) {
         modifier = Modifier.fillMaxSize()
     ) {
         Text(text = "Home", fontSize = 32.sp)
-        Button(onClick = { navController.navigate(MenuList.route) }) {
+        Button(onClick = { navController.navigate(MenuList.route + "/100") }) {
             Text(text = "Press Me")
         }
     }
