@@ -79,7 +79,8 @@ fun MyBottomNavigation(navController: NavController) {
                         popUpTo(Home.route)
                         launchSingleTop = true
                     }
-                })
+                }
+            )
         }
     }
 }
