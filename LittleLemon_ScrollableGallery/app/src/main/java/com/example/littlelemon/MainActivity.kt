@@ -19,7 +19,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppScreen() {
-//    ScrollableGalleryScreen()
-    ScrollableColumn()
+    /*
+    * Implementation of scrollable grid using Column and Row
+    */
+    ScrollableGalleryScreen()
+
+    /*
+    * Implementation of Nested scrolling
+    */
+    // ScrollableColumn()
+
+    /*
+    * Implementation of LazyRow and LazyColumn
+    */
+    // MenuListScreen()
 }
 
