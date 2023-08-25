@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -42,13 +43,21 @@ fun LazyGrid() {
 //    LazyVerticalGrid(columns = GridCells.Adaptive(140.dp)) {
 //        items(1000) { MyGridCell() }
 //    }
+
+    /* Horizontal Grid */
+//    LazyHorizontalGrid(rows = GridCells.Fixed(2)) {
+//        items(1000) { MyGridCell() }
+//    }
+
+//    LazyHorizontalGrid(rows = GridCells.Adaptive(200.dp)) {
+//        items(1000) { MyGridCell() }
+//    }
 }
 
 @Composable
 fun MyGridCell() {
     Card(
-        elevation = 16.dp,
-        modifier = Modifier.padding(8.dp)
+        elevation = 16.dp, modifier = Modifier.padding(8.dp)
     ) {
         Box(
             modifier = Modifier
