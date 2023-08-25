@@ -22,7 +22,7 @@ fun AppScreen() {
     /*
     * Implementation of scrollable grid using Column and Row
     */
-    ScrollableGalleryScreen()
+    // ScrollableGalleryScreen()
 
     /*
     * Implementation of Nested scrolling
@@ -33,5 +33,11 @@ fun AppScreen() {
     * Implementation of LazyRow and LazyColumn
     */
     // MenuListScreen()
+
+    /*
+    * Implementation of state in LazyRow and LazyColumn
+    * Remembering the scroll position over orientation changes
+    */
+    LazyColumnRememberedState()
 }
 

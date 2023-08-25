@@ -1,12 +1,10 @@
 package com.example.littlelemon
 
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +15,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MyCard(number: Int) {
+fun LazyColumnRememberedState() {
+    LazyColumn(state = rememberLazyListState()) {
+        item { LazyRowRememberedState() }
+        items(1000) {
+            MyCardView(number = it)
+        }
+    }
+}
+
+@Composable
+fun LazyRowRememberedState() {
+    LazyRow(state = rememberLazyListState()) {
+        items(1000) {
+            MyCardView(number = it)
+        }
+    }
+}
+
+@Composable
+fun MyCardView(number: Int) {
     Card(
         elevation = 16.dp,
         modifier = Modifier.padding(16.dp)
@@ -34,30 +51,7 @@ fun MyCard(number: Int) {
 }
 
 @Composable
-fun ScrollableColumn() {
-    Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
-    ) {
-        ScrollableRow()
-        repeat(20) {
-            MyCard(number = it)
-        }
-    }
-}
-
-@Composable
-fun ScrollableRow() {
-    Row(
-        modifier = Modifier.horizontalScroll(rememberScrollState())
-    ) {
-        repeat(20) {
-            MyCard(number = it)
-        }
-    }
-}
-
-@Composable
 @Preview(showSystemUi = true)
-fun PreviewScrollableColumn() {
-    ScrollableColumn()
+fun PreviewLazyColumn() {
+    LazyColumnRememberedState()
 }
