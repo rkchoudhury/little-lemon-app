@@ -38,6 +38,11 @@ fun AppScreen() {
     * Implementation of state in LazyRow and LazyColumn
     * Remembering the scroll position over orientation changes
     */
-    LazyColumnRememberedState()
+    // LazyColumnRememberedState()
+
+    /*
+    * Implementation of LazyGrid with Fixed and Adaptive mode
+    */
+    LazyGrid()
 }
 

@@ -71,5 +71,5 @@ fun GalleryCell() {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewGalleryCell() {
-    GalleryCell()
+    ScrollableGalleryScreen()
 }
