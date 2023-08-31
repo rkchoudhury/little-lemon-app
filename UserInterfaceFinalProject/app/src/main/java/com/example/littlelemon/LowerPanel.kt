@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
 fun LowerPanel(navController: NavHostController, dishes: List<Dish> = listOf()) {
@@ -55,7 +56,7 @@ fun MenuDish(navController: NavHostController? = null, dish: Dish) {
                 .padding(8.dp)
         ) {
             Column {
-                Text(text = dish.name, style = MaterialTheme.typography.subtitle1)
+                Text(text = dish.name, style = MaterialTheme.typography.h1)
                 Text(
                     text = dish.description,
                     style = MaterialTheme.typography.body1,
@@ -63,7 +64,7 @@ fun MenuDish(navController: NavHostController? = null, dish: Dish) {
                         .padding(0.dp, 5.dp)
                         .fillMaxWidth(0.75f)
                 )
-                Text(text = "$${dish.price}", style = MaterialTheme.typography.body2)
+                Text(text = "$${dish.price}", style = MaterialTheme.typography.h2)
             }
             Image(
                 painter = painterResource(dish.imageResource),
@@ -75,5 +76,6 @@ fun MenuDish(navController: NavHostController? = null, dish: Dish) {
     Divider(
         modifier = Modifier.padding(start = 8.dp, end = 8.dp),
         thickness = 1.dp,
+        color = LittleLemonColor.yellow
     )
 }

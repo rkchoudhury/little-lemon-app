@@ -10,6 +10,8 @@ val Purple700 = Color(0xFFEE9972)
 
 private val LightColorPalette = lightColors(
     primaryVariant = Purple700,
+    primary = LittleLemonColor.yellow,
+    secondary = LittleLemonColor.pink
 )
 
 @Composable
