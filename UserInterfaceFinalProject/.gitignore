@@ -1,0 +1,3 @@
+#ignoring .idea and .gradle folder
+.idea/
+.gradle/
