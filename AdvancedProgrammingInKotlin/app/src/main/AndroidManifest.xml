@@ -12,6 +12,11 @@
         android:theme="@style/Theme.AdvancedProgrammingInKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".SecondActivity"
+            android:exported="false"
+            android:label="@string/title_activity_second"
+            android:theme="@style/Theme.AdvancedProgrammingInKotlin" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
