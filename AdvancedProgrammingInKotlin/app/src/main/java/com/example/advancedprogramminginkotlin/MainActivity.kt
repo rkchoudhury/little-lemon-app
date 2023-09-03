@@ -35,6 +35,11 @@ class MainActivity : ComponentActivity() {
 
             RestaurantTables.removeCustomer("ABC")
             Log.d("rkkkk MainActivity", "onCreate: ${RestaurantTables.customers.size}")
+
+            val instance = RestaurantTables
+            instance.addCustomer("Radha")
+            Log.d("rkkkk MainActivity", "onCreate: ${RestaurantTables.customers.size}")
+
         }
     }
 }
