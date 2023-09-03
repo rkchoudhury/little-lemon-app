@@ -1,6 +1,7 @@
 package com.example.advancedprogramminginkotlin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,15 @@ class MainActivity : ComponentActivity() {
                     Greeting("Android")
                 }
             }
+
+            RestaurantTables.addCustomer("Krishna")
+            RestaurantTables.addCustomer("Ram")
+            RestaurantTables.addCustomer("Shiva")
+            RestaurantTables.addCustomer("ABC")
+            Log.d("rkkkk MainActivity", "onCreate: ${RestaurantTables.customers.size}")
+
+            RestaurantTables.removeCustomer("ABC")
+            Log.d("rkkkk MainActivity", "onCreate: ${RestaurantTables.customers.size}")
         }
     }
 }
