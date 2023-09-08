@@ -21,6 +21,11 @@ class TaxCalculator {
         }
 
         //Can't access `amount` here
+
+        fun calculateGst() {
+            println("${gst * 10}")
+        }
+
     }
 }
 
@@ -34,7 +39,11 @@ fun main() {
 
     println(TaxCalculator.getTaxAmountForOrderItems(orderList))
 
+    TaxCalculator.calculateGst() //100.0
+
     //Able to change the value of gst as it is var
     //But we can not change the value of salesTaxPercentage as it is val
     TaxCalculator.gst = 7.00
+
+    TaxCalculator.calculateGst() //70.0
 }
