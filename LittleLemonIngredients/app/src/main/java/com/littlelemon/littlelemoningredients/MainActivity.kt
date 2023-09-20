@@ -1,8 +1,9 @@
 package com.littlelemon.littlelemoningredients
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,10 +11,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<View>(R.id.main_dish_1).setOnClickListener {
-            // Your solution here.
+
+            //IngredientsActivity.start(this, "Hamburger")
+
+            //Alternative way
+            this.startActivity(
+                Intent(this, IngredientsActivity::class.java).putExtra(
+                    "DishName",
+                    "Hamburger"
+                )
+            )
         }
         findViewById<View>(R.id.main_dish_2).setOnClickListener {
-            // Your solution here.
+            IngredientsActivity.start(this, "Pasta")
         }
     }
 }
