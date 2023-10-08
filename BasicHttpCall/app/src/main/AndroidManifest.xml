@@ -16,6 +16,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MenuAutoCallActivity"
+            android:exported="false"
+            android:label="@string/title_activity_menu_auto_call"
+            android:theme="@style/Theme.LittleLemon" />
+        <activity
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/title_activity_menu"
