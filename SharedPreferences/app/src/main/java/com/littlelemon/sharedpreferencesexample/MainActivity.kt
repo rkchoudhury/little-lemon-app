@@ -1,6 +1,7 @@
 package com.littlelemon.sharedpreferencesexample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +27,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val sharedPreferences = getSharedPreferences("LittleLemon", MODE_PRIVATE)
+        val lastCount = sharedPreferences.getInt("StartCount", 0)
+        val newCount = lastCount + 1
+
+        Log.d("StartCount", "New Count: $newCount")
+        sharedPreferences.edit().putInt("StartCount", newCount).apply()
     }
 }
 
