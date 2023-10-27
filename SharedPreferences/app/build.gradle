@@ -60,4 +60,7 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    //For the usages of observeAsState: https://stackoverflow.com/questions/66560404/jetpack-compose-unresolved-reference-observeasstate
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_ui_version"
 }
