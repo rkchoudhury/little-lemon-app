@@ -12,6 +12,11 @@
         android:theme="@style/Theme.SharedPreferencesExample"
         tools:targetApi="31">
         <activity
+            android:name=".TipActivity"
+            android:exported="true"
+            android:label="@string/title_activity_tip"
+            android:theme="@style/Theme.SharedPreferencesExample" />
+        <activity
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/title_activity_menu"
