@@ -8,16 +8,28 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.edit
+import androidx.lifecycle.MutableLiveData
 import com.littlelemon.sharedpreferencesexample.ui.theme.SharedPreferencesExampleTheme
 
 class TipActivity : ComponentActivity() {
+
+    private val sharedPreferences by lazy {
+        getSharedPreferences("LittleLemon", MODE_PRIVATE)
+    }
+
+    private val tipMenuLiveData = MutableLiveData<Boolean>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        tipMenuLiveData.value = sharedPreferences.getBoolean("Tip", false)
+
         setContent {
             SharedPreferencesExampleTheme {
                 // A surface container using the 'background' color from the theme
@@ -25,24 +37,21 @@ class TipActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         Text(text = "Add Tip?")
+
+                        val selected = tipMenuLiveData.observeAsState(false)
+                        Switch(checked = selected.value, onCheckedChange = {
+//                            sharedPreferences.edit().putBoolean("Tip", it).apply()
+                            sharedPreferences.edit(commit = true) { putBoolean("Tip", it) } //alternative way
+                            runOnUiThread { tipMenuLiveData.value = it } //Update in the live value in switch UI
+                        })
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting3(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview2() {
-    SharedPreferencesExampleTheme {
-        Greeting3("Android")
     }
 }
