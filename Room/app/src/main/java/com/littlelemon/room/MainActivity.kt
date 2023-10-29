@@ -8,14 +8,28 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Right
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import com.littlelemon.room.ui.theme.RoomTheme
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
 class MainActivity : ComponentActivity() {
+
+    private val database by lazy {
+        Room.databaseBuilder(
+            applicationContext, MenuDatabase::class.java, "menu.db"
+        ).build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -24,9 +38,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val menuItems by remember {
-                        mutableStateOf(emptyList<MenuItem>())
-                    }
+                    val menuItems by database.menuDao().getAllMenuItems()
+                        .observeAsState(emptyList())
                     Column {
                         var dishName by remember { mutableStateOf("") }
                         var priceInput by remember { mutableStateOf("") }
@@ -50,6 +63,17 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .padding(16.dp),
                             onClick = {
+                                val newMenuItem = MenuItem(
+                                    id = UUID.randomUUID().toString(),
+                                    name = dishName,
+                                    price = priceInput.toDouble()
+                                )
+
+                                lifecycleScope.launch {
+                                    withContext(IO) {
+                                        database.menuDao().saveMenuItem(newMenuItem)
+                                    }
+                                }
                                 dishName = ""
                                 priceInput = ""
                             }
@@ -92,7 +116,13 @@ class MainActivity : ComponentActivity() {
                                 text = "%.2f".format(menuItem.price)
                             )
                             Spacer(modifier = Modifier.width(16.dp))
-                            Button(onClick = { /*TODO*/ }) {
+                            Button(onClick = {
+                                lifecycleScope.launch {
+                                    withContext(IO) {
+                                        database.menuDao().deleteMenuItem(menuItem)
+                                    }
+                                }
+                            }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.delete_icon),
                                     contentDescription = "Delete"
