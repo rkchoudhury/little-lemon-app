@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.littlelemon.roommenuapplication.ui.theme.RoomMenuApplicationTheme
@@ -40,7 +39,7 @@ class UserActivity : ComponentActivity() {
                     // Get a list of users from the database as Compose state
                     val users by database.getAllUsers().observeAsState(emptyList())
 
-                    Greeting("Android, \nThe total number of user added is ${users.size}")
+                    Greeting("Android, \n\nThe total number of user added is ${users.size}")
                     Button(
                         modifier = Modifier
                             .padding(100.dp),
@@ -66,14 +65,6 @@ class UserActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting2(name: String) {
+fun Greeting(name: String) {
     Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview2() {
-    RoomMenuApplicationTheme {
-        Greeting2("Android")
-    }
 }
