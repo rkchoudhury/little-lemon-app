@@ -1,6 +1,7 @@
 package com.littlelemon.littlelemondashboard
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -18,8 +19,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.littlelemon.littlelemondashboard.ui.theme.LittleLemonDashboardTheme
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
@@ -69,14 +72,19 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (database.menuItemDao().isEmpty()) {
-                // add code here
+                val menuItems = fetchMenu()
+                saveMenuToDatabase(menuItems)
             }
         }
     }
 
     private suspend fun fetchMenu(): List<MenuItemNetwork> {
-        TODO("Retrieve data")
-        // data URL: https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json
+        val url = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json"
+        val response: MenuNetwork = httpClient.get(url).body()
+        val menuItems: List<MenuItemNetwork> = response.menu ?: listOf()
+
+        Log.d("rkkkkkk", "fetchMenu: ${menuItems.size}")
+        return menuItems
     }
 
     private fun saveMenuToDatabase(menuItemsNetwork: List<MenuItemNetwork>) {
