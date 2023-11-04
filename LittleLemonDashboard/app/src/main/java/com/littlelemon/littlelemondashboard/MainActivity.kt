@@ -12,11 +12,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -82,14 +79,14 @@ class MainActivity : ComponentActivity() {
                     }
 
                     // add searchPhrase variable here
-                    val searchPhrase = remember {
+                    var searchPhrase by remember {
                         mutableStateOf("")
                     }
 
                     // Add OutlinedTextField
                     OutlinedTextField(
-                        value = searchPhrase.value,
-                        onValueChange = { searchPhrase.value = it },
+                        value = searchPhrase,
+                        onValueChange = { searchPhrase = it },
                         placeholder = { Text(text = "Enter name...") },
                         singleLine = true,
                         label = { Text(text = "Search") },
@@ -102,9 +99,9 @@ class MainActivity : ComponentActivity() {
                     )
 
                     // add is not empty check here
-                    if (searchPhrase.value != "") {
+                    if (searchPhrase != "") {
                         val filteredMenuItems = menuItems.filter {
-                            it.title.lowercase().contains(searchPhrase.value.lowercase())
+                            it.title.lowercase().contains(searchPhrase.lowercase())
                         }
                         menuItems = filteredMenuItems
                     }
