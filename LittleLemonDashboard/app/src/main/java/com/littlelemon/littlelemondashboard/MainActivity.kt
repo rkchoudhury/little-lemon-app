@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -44,6 +46,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LittleLemonDashboardTheme {
                 // add databaseMenuItems code here
+                val databaseMenuItems by database.menuItemDao().getAll().observeAsState(emptyList())
 
                 // add orderMenuItems variable here
 
@@ -58,6 +61,7 @@ class MainActivity : ComponentActivity() {
                         contentDescription = "logo",
                         modifier = Modifier.padding(50.dp)
                     )
+                    MenuItemsList(databaseMenuItems)
 
                     // add Button code here
 
@@ -80,7 +84,8 @@ class MainActivity : ComponentActivity() {
 
     private suspend fun fetchMenu(): List<MenuItemNetwork> {
         val url = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json"
-        val response: MenuNetwork = httpClient.get(url).body()
+        val response = httpClient.get(url).body<MenuNetwork>()
+        // val response: MenuNetwork = httpClient.get(url).body() // Alternative way
         val menuItems: List<MenuItemNetwork> = response.menu ?: listOf()
 
         Log.d("rkkkkkk", "fetchMenu: ${menuItems.size}")
