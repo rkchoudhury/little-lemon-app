@@ -12,17 +12,23 @@ val Typography = Typography(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
-    )
-    /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
     ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+    h1 = TextStyle(
+        fontSize = 26.sp,
+        fontWeight = FontWeight.Bold,
+        color = LittleLemonColor.charcoal
+    ),
+    h2 = TextStyle(
+        color = LittleLemonColor.charcoal,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold
+    ),
+    body2 = TextStyle(
+        fontWeight = FontWeight.Bold,
+        color = LittleLemonColor.green
+    ),
+    button = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold
     )
-    */
 )

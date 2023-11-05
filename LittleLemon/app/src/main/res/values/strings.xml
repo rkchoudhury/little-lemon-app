@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Little Lemon</string>
+
+    <string name="on_boarding_know_you">Let\'s get to know you</string>
 </resources>
