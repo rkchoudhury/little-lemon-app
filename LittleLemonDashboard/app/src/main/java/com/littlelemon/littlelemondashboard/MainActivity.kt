@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
 
     private fun saveMenuToDatabase(menuItemsNetwork: List<MenuItemNetwork>) {
         val menuItemsRoom = menuItemsNetwork.map { it.toMenuItemRoom() }
-        database.menuItemDao().insertAll(*menuItemsRoom.toTypedArray())
+        database.menuItemDao().insertAll(menuItemsRoom)
     }
 }
 

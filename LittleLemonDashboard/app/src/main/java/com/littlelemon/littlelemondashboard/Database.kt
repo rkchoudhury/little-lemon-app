@@ -22,7 +22,7 @@ interface MenuItemDao {
     fun getAll(): LiveData<List<MenuItemRoom>>
 
     @Insert
-    fun insertAll(vararg menuItems: MenuItemRoom)
+    fun insertAll(menuItems: List<MenuItemRoom>)
 
     @Query("SELECT (SELECT COUNT(*) FROM MenuItemRoom) == 0")
     fun isEmpty(): Boolean
