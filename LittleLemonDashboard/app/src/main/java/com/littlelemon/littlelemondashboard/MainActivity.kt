@@ -64,6 +64,19 @@ class MainActivity : ComponentActivity() {
                     databaseMenuItems
                 }
 
+                // add searchPhrase variable here
+                var searchPhrase by remember {
+                    mutableStateOf("")
+                }
+
+                // add is not empty check here
+                if (searchPhrase != "") {
+                    val filteredMenuItems = menuItems.filter {
+                        it.title.lowercase().contains(searchPhrase.lowercase())
+                    }
+                    menuItems = filteredMenuItems
+                }
+
                 Column(
                     modifier = Modifier
                         .padding(16.dp),
@@ -76,11 +89,6 @@ class MainActivity : ComponentActivity() {
                     )
                     Button(onClick = { orderMenuItems.value = true }) {
                         Text(text = "Tap to Order By Name")
-                    }
-
-                    // add searchPhrase variable here
-                    var searchPhrase by remember {
-                        mutableStateOf("")
                     }
 
                     // Add OutlinedTextField
@@ -97,14 +105,6 @@ class MainActivity : ComponentActivity() {
                             placeholderColor = Grey
                         )
                     )
-
-                    // add is not empty check here
-                    if (searchPhrase != "") {
-                        val filteredMenuItems = menuItems.filter {
-                            it.title.lowercase().contains(searchPhrase.lowercase())
-                        }
-                        menuItems = filteredMenuItems
-                    }
 
                     MenuItemsList(menuItems)
 
