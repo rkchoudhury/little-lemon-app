@@ -8,7 +8,10 @@
     <string name="last_name">Last Name</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
+    <string name="registration_successful">"Registration is successful."</string>
+    <string name="registration_unsuccessful">"Registration unsuccessful. Please retry again."</string>
 
+    <string name="okay">Okay</string>
     <string name="register">Register</string>
     <string name="logout">Logout</string>
 

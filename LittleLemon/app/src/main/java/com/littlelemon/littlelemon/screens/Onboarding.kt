@@ -4,7 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -13,14 +13,36 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.components.LittleLemonButton
+import com.littlelemon.littlelemon.components.LittleLemonDialog
 import com.littlelemon.littlelemon.components.LittleLemonTextInput
+import com.littlelemon.littlelemon.navigations.Profile
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 import com.littlelemon.littlelemon.ui.theme.LittleLemonTheme
 
 @Composable
-fun Onboarding() {
+fun Onboarding(navController: NavHostController) {
+    var firstName by remember {
+        mutableStateOf("")
+    }
+
+    var lastName by remember {
+        mutableStateOf("")
+    }
+
+    var email by remember {
+        mutableStateOf("")
+    }
+
+    val isButtonDisabled: Boolean = firstName.isBlank() || lastName.isBlank() || email.isBlank()
+
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+
     LittleLemonTheme {
         Column {
             Image(
@@ -50,17 +72,36 @@ fun Onboarding() {
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
-            LittleLemonTextInput(stringResource(id = R.string.first_name))
-            LittleLemonTextInput(stringResource(id = R.string.last_name))
-            LittleLemonTextInput(stringResource(id = R.string.email))
+            LittleLemonTextInput(
+                label = stringResource(id = R.string.first_name),
+                onChangeText = { firstName = it })
+            LittleLemonTextInput(
+                label = stringResource(id = R.string.last_name),
+                onChangeText = { lastName = it })
+            LittleLemonTextInput(
+                label = stringResource(id = R.string.email),
+                onChangeText = { email = it })
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(0.dp, 0.dp, 0.dp, 30.dp),
                 verticalArrangement = Arrangement.Bottom
             ) {
-                LittleLemonButton(label = stringResource(id = R.string.register))
+                LittleLemonButton(
+                    label = stringResource(id = R.string.register), isEnabled = !isButtonDisabled,
+                    onPress = {
+                        showDialog = true
+                    },
+                )
             }
+            LittleLemonDialog(
+                visibleDialog = showDialog,
+                message = stringResource(id = R.string.registration_successful),
+                onPressButton = {
+                    showDialog = false
+                    navController.navigate(Profile.route)
+                }
+            )
         }
     }
 }
@@ -68,5 +109,5 @@ fun Onboarding() {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewOnboarding() {
-    Onboarding()
+    Onboarding(rememberNavController())
 }

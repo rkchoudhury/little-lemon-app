@@ -13,14 +13,15 @@ import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 import com.littlelemon.littlelemon.ui.theme.Shapes
 
 @Composable
-fun LittleLemonButton(label: String, onPress: () -> Unit = {}) {
+fun LittleLemonButton(label: String, onPress: () -> Unit = {}, isEnabled: Boolean = true) {
     Button(
         onClick = { onPress() },
         shape = Shapes.large,
         modifier = Modifier
             .fillMaxWidth()
             .padding(50.dp, 10.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = LittleLemonColor.yellow)
+        colors = ButtonDefaults.buttonColors(backgroundColor = LittleLemonColor.yellow),
+        enabled = isEnabled,
     ) {
         Text(
             text = label.uppercase(),
