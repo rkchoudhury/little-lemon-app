@@ -14,28 +14,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.littlelemon.littlelemon.components.LittleLemonTextInput
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
+import com.littlelemon.littlelemon.ui.theme.LittleLemonTheme
 
 @Composable
 fun Onboarding() {
-    Column() {
-        Image(
-            painter = painterResource(R.drawable.little_lemon_logo),
-            contentDescription = "Little Lemon Logo",
-            modifier = Modifier.padding(100.dp, 20.dp),
-        )
-        Text(
-            text = stringResource(id = R.string.on_boarding_know_you),
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    LittleLemonColor.green
-                )
-                .padding(100.dp, 40.dp),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
-            color = LittleLemonColor.white
-        )
+    LittleLemonTheme {
+        Column {
+            Image(
+                painter = painterResource(R.drawable.little_lemon_logo),
+                contentDescription = "Little Lemon Logo",
+                modifier = Modifier.padding(100.dp, 20.dp),
+            )
+            Text(
+                text = stringResource(id = R.string.on_boarding_know_you),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        LittleLemonColor.green
+                    )
+                    .padding(100.dp, 40.dp),
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium,
+                color = LittleLemonColor.white
+            )
+            Text(text = stringResource(id = R.string.personal_information))
+            LittleLemonTextInput(stringResource(id = R.string.first_name))
+            LittleLemonTextInput(stringResource(id = R.string.last_name))
+            LittleLemonTextInput(stringResource(id = R.string.email))
+        }
     }
 }
 
