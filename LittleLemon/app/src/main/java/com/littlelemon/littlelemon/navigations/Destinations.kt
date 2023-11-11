@@ -4,12 +4,12 @@ interface Destinations {
     val route: String
 }
 
-object OnBoardingDestination: Destinations {
+object OnBoarding: Destinations {
     override val route: String = "OnBoarding"
 
 }
 
-object ProfileDestination: Destinations {
+object Profile: Destinations {
     override val route: String = "Profile"
 
 }
