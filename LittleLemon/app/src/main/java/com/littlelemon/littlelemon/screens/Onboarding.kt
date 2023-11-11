@@ -1,11 +1,14 @@
 package com.littlelemon.littlelemon.screens
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -13,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.edit
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
@@ -24,7 +28,11 @@ import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 import com.littlelemon.littlelemon.ui.theme.LittleLemonTheme
 
 @Composable
-fun Onboarding(navController: NavHostController) {
+fun Onboarding(navController: NavHostController, applicationContext: Context) {
+    val sharedPreferences by lazy {
+        applicationContext.getSharedPreferences("LittleLemon", MODE_PRIVATE)
+    }
+
     var firstName by remember {
         mutableStateOf("")
     }
@@ -91,6 +99,14 @@ fun Onboarding(navController: NavHostController) {
                     label = stringResource(id = R.string.register), isEnabled = !isButtonDisabled,
                     onPress = {
                         showDialog = true
+//                        sharedPreferences.edit().putString("firstName", firstName)
+//                            .putString("lastName", lastName).putString("email", email).apply()
+
+                        sharedPreferences.edit(commit = true) {
+                            putString("first_name", firstName)
+                            putString("last_name", lastName)
+                            putString("email", email)
+                        }
                     },
                 )
             }
@@ -109,5 +125,5 @@ fun Onboarding(navController: NavHostController) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewOnboarding() {
-    Onboarding(rememberNavController())
+    Onboarding(rememberNavController(), LocalContext.current)
 }
