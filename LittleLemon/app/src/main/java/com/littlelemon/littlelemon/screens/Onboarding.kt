@@ -99,8 +99,8 @@ fun Onboarding(navController: NavHostController, applicationContext: Context) {
                     label = stringResource(id = R.string.register), isEnabled = !isButtonDisabled,
                     onPress = {
                         showDialog = true
-//                        sharedPreferences.edit().putString("firstName", firstName)
-//                            .putString("lastName", lastName).putString("email", email).apply()
+//                        sharedPreferences.edit().putString("first_name", firstName)
+//                            .putString("last_name", lastName).putString("email", email).apply()
 
                         sharedPreferences.edit(commit = true) {
                             putString("first_name", firstName)
