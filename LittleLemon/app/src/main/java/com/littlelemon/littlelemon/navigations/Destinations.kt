@@ -6,10 +6,12 @@ interface Destinations {
 
 object OnBoarding: Destinations {
     override val route: String = "OnBoarding"
-
 }
 
 object Profile: Destinations {
     override val route: String = "Profile"
+}
 
+object Dashboard: Destinations {
+    override val route: String = "Dashboard"
 }

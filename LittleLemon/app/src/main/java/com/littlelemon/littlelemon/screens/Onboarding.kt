@@ -23,7 +23,7 @@ import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.components.LittleLemonButton
 import com.littlelemon.littlelemon.components.LittleLemonDialog
 import com.littlelemon.littlelemon.components.LittleLemonTextInput
-import com.littlelemon.littlelemon.navigations.Profile
+import com.littlelemon.littlelemon.navigations.Dashboard
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 import com.littlelemon.littlelemon.ui.theme.LittleLemonTheme
 
@@ -115,7 +115,7 @@ fun Onboarding(navController: NavHostController, applicationContext: Context) {
                 message = stringResource(id = R.string.registration_successful),
                 onPressButton = {
                     showDialog = false
-                    navController.navigate(Profile.route)
+                    navController.navigate(Dashboard.route)
                 }
             )
         }
