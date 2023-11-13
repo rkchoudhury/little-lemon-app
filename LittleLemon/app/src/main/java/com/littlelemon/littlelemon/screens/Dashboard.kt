@@ -1,24 +1,31 @@
 package com.littlelemon.littlelemon.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.navigations.Profile
+import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
 fun Dashboard(navController: NavHostController) {
     Column {
         HeaderView(navController)
-
+        BannerView()
     }
 }
 
@@ -46,8 +53,60 @@ fun HeaderView(navController: NavHostController) {
                 .clickable {
                     navController.navigate(Profile.route)
                 }
-            
         )
+    }
+}
+
+@Composable
+fun BannerView() {
+    Column(
+        modifier = Modifier
+            .background(LittleLemonColor.green)
+            .fillMaxWidth()
+            .padding(10.dp, 15.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.restaurant_name),
+            fontSize = 32.sp,
+            color = LittleLemonColor.yellow,
+            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily.Serif,
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(0.5f)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.restaurant_city),
+                    fontSize = 24.sp,
+                    color = LittleLemonColor.cloud,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = FontFamily.Serif,
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 15.dp)
+                )
+                Text(
+                    text = stringResource(id = R.string.restaurant_desc),
+                    fontSize = 14.sp,
+                    color = LittleLemonColor.cloud,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = FontFamily.Serif,
+                )
+            }
+            Image(
+                painter = painterResource(id = R.drawable.upperpanelimage),
+                contentDescription = "image",
+                modifier = Modifier
+                    .weight(0.5f)
+                    .size(120.dp),
+                alignment = Alignment.CenterEnd,
+            )
+        }
     }
 }
 
