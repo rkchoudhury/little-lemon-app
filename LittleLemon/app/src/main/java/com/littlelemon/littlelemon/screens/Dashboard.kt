@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
+import com.littlelemon.littlelemon.components.CategoryItem
 import com.littlelemon.littlelemon.components.MenuItem
 import com.littlelemon.littlelemon.navigations.Profile
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
@@ -27,6 +28,7 @@ fun Dashboard(navController: NavHostController) {
     Column {
         HeaderView(navController)
         BannerView()
+        CategoryItem(label = "Mains") {}
         MenuItem(
             title = "Greek Salad",
             details = "The famous greek salad of crispy lettuce, peppers, olives, our Chicago.",
