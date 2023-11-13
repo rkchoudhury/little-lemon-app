@@ -13,7 +13,7 @@ import com.littlelemon.littlelemon.screens.Profile
 @Composable
 fun AppNavigation(context: Context) {
     val navController: NavHostController = rememberNavController()
-    val startDestination: String =  Dashboard.route
+    val startDestination: String =  OnBoarding.route
 
     NavHost(navController = navController, startDestination) {
         composable(OnBoarding.route) {

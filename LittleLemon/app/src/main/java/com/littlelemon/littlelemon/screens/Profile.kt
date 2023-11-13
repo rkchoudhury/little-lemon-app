@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.components.LittleLemonButton
+import com.littlelemon.littlelemon.navigations.OnBoarding
 
 @Composable
 fun Profile(navController: NavHostController, applicationContext: Context) {
@@ -48,7 +49,12 @@ fun Profile(navController: NavHostController, applicationContext: Context) {
                 label = stringResource(id = R.string.logout),
                 onPress = {
                     sharedPreferences.edit().clear().apply()
-                    navController.popBackStack()
+                    navController.navigate(OnBoarding.route) {
+                        popUpTo(OnBoarding.route) {
+                            inclusive = true
+                        }
+                    }
+
                 }
             )
         }
