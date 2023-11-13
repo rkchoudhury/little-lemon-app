@@ -4,6 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.components.CategoryItem
 import com.littlelemon.littlelemon.components.MenuItem
+import com.littlelemon.littlelemon.constants.Categories
 import com.littlelemon.littlelemon.navigations.Profile
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 
@@ -28,7 +32,7 @@ fun Dashboard(navController: NavHostController) {
     Column {
         HeaderView(navController)
         BannerView()
-        CategoryItem(label = "Mains") {}
+        CategorySection()
         MenuItem(
             title = "Greek Salad",
             details = "The famous greek salad of crispy lettuce, peppers, olives, our Chicago.",
@@ -117,6 +121,23 @@ fun BannerView() {
             )
         }
     }
+}
+
+@Composable
+fun CategorySection() {
+    Column(modifier = Modifier.padding(20.dp, 10.dp)) {
+        Text(
+            text = stringResource(id = R.string.order_delivery).uppercase(),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+        )
+        LazyRow(contentPadding = PaddingValues(0.dp, 15.dp, 20.dp, 15.dp)) {
+            items(Categories) { eachCategory ->
+                CategoryItem(label = eachCategory) {}
+            }
+        }
+    }
+    Divider()
 }
 
 @Composable

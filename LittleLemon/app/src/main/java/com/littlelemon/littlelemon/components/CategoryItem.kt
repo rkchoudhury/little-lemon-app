@@ -19,12 +19,12 @@ import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 fun CategoryItem(label: String, onPress: () -> Unit) {
     Box(
         modifier = Modifier
-            .padding(20.dp, 10.dp, 0.dp, 10.dp)
+            .padding(0.dp, 0.dp, 15.dp, 0.dp)
             .clip(shape = RoundedCornerShape(10.dp))
             .clickable { onPress() }
     ) {
         Text(
-            text = label,
+            text = label.substring(0, 1).uppercase() + label.substring(1).lowercase(),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = LittleLemonColor.green,
