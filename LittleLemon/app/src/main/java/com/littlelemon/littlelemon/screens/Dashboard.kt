@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.littlelemon.littlelemon.R
+import com.littlelemon.littlelemon.components.MenuItem
 import com.littlelemon.littlelemon.navigations.Profile
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 
@@ -26,6 +27,12 @@ fun Dashboard(navController: NavHostController) {
     Column {
         HeaderView(navController)
         BannerView()
+        MenuItem(
+            title = "Greek Salad",
+            details = "The famous greek salad of crispy lettuce, peppers, olives, our Chicago.",
+            price = "10",
+            imageUrl = "https://github.com/Meta-Mobile-Developer-PC/Working-With-Data-API/blob/main/images/greekSalad.jpg?raw=true"
+        )
     }
 }
 
