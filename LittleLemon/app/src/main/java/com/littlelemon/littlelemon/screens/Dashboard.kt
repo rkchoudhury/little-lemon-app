@@ -1,16 +1,24 @@
 package com.littlelemon.littlelemon.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -24,21 +32,21 @@ import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.components.CategoryItem
 import com.littlelemon.littlelemon.components.MenuItem
 import com.littlelemon.littlelemon.constants.Categories
+import com.littlelemon.littlelemon.databases.AppDatabaseInstance
+import com.littlelemon.littlelemon.databases.MenuItemRoom
 import com.littlelemon.littlelemon.navigations.Profile
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
-fun Dashboard(navController: NavHostController) {
+fun Dashboard(navController: NavHostController, context: Context) {
+    val databaseInstance by lazy { AppDatabaseInstance(context) }
+    val menuItems by databaseInstance.getMenuItems().observeAsState(emptyList())
+
     Column {
         HeaderView(navController)
         BannerView()
         CategorySection()
-        MenuItem(
-            title = "Greek Salad",
-            details = "The famous greek salad of crispy lettuce, peppers, olives, our Chicago.",
-            price = "10",
-            imageUrl = "https://github.com/Meta-Mobile-Developer-PC/Working-With-Data-API/blob/main/images/greekSalad.jpg?raw=true"
-        )
+        MenuItemList(menuItems)
     }
 }
 
@@ -120,7 +128,29 @@ fun BannerView() {
                 alignment = Alignment.CenterEnd,
             )
         }
+        TextInputView()
     }
+}
+
+@Composable
+fun TextInputView() {
+    var searchPhrase by remember {
+        mutableStateOf("")
+    }
+
+    TextField(
+        value = searchPhrase,
+        onValueChange = {
+            searchPhrase = it
+        },
+        singleLine = true,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp, 15.dp, 10.dp, 0.dp)
+            .background(LittleLemonColor.white),
+        placeholder = { "Enter search phrases" },
+        leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "") }
+    )
 }
 
 @Composable
@@ -141,7 +171,22 @@ fun CategorySection() {
 }
 
 @Composable
+fun MenuItemList(menuItems: List<MenuItemRoom>) {
+    LazyColumn() {
+        items(menuItems) { menuItem ->
+            MenuItem(
+                title = menuItem.title,
+                details = menuItem.description,
+                price = menuItem.price,
+                imageUrl = menuItem.image
+            )
+        }
+    }
+
+}
+
+@Composable
 @Preview(showSystemUi = true)
 fun PreviewDashboard() {
-    Dashboard(rememberNavController())
+    Dashboard(rememberNavController(), LocalContext.current)
 }

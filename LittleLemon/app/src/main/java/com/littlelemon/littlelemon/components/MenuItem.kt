@@ -17,7 +17,7 @@ import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun MenuItem(title: String, details: String, price: String, imageUrl: String) {
+fun MenuItem(title: String, details: String, price: Double, imageUrl: String) {
     Column(
         modifier = Modifier
             .padding(20.dp, 10.dp)
@@ -47,7 +47,7 @@ fun MenuItem(title: String, details: String, price: String, imageUrl: String) {
                     fontFamily = FontFamily.Serif,
                 )
                 Text(
-                    text = "$${price.toDouble()}",
+                    text = "$${price}",
                     fontSize = 14.sp,
                     color = LittleLemonColor.charcoal,
                     fontFamily = FontFamily.Serif
@@ -68,5 +68,5 @@ fun MenuItem(title: String, details: String, price: String, imageUrl: String) {
 @Composable
 @Preview(showSystemUi = true)
 fun PreviewMenuItem() {
-    MenuItem("title", "This is a new dish", "50", "")
+    MenuItem("title", "This is a new dish", 50.0, "")
 }

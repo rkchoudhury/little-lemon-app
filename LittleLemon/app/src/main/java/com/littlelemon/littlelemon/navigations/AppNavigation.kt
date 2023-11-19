@@ -21,7 +21,7 @@ fun AppNavigation(context: Context) {
         }
 
         composable(Dashboard.route) {
-            Dashboard(navController)
+            Dashboard(navController, context)
         }
 
         composable(Profile.route) {
