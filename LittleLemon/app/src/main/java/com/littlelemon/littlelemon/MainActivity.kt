@@ -9,6 +9,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
+import com.littlelemon.littlelemon.databases.AppDatabaseInstance
+import com.littlelemon.littlelemon.databases.MenuItemRoom
 import com.littlelemon.littlelemon.navigations.AppNavigation
 import com.littlelemon.littlelemon.networks.MenuItemNetwork
 import com.littlelemon.littlelemon.networks.MenuNetwork
@@ -30,6 +32,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private val database by lazy { AppDatabaseInstance(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,8 +49,13 @@ class MainActivity : ComponentActivity() {
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val menuItems = fetchMenu()
-            Log.d("LITTLE_LEMON", "onCreate: fetched menu items of length ${menuItems.size}")
+            if (database.isEmptyMenuItems()) {
+                val menuItems = fetchMenu()
+                Log.d("LITTLE_LEMON", "onCreate: fetched menu items of length ${menuItems.size}")
+                saveMenuItems(menuItems)
+            } else {
+                Log.d("LITTLE_LEMON", "onCreate: menu items are already there in the db")
+            }
         }
     }
 
@@ -56,5 +65,19 @@ class MainActivity : ComponentActivity() {
         val response = httpClient.get(url).body<MenuNetwork>()
 
         return response.menu ?: listOf()
+    }
+
+    private fun saveMenuItems(menuItems: List<MenuItemNetwork>) {
+        val menuItemsRoom = menuItems.map {
+            MenuItemRoom(
+                id = it.id,
+                title = it.title,
+                description = it.description,
+                price = it.price,
+                image = it.image,
+                category = it.category,
+            )
+        }
+        database.insertAllMenuItems(menuItemsRoom)
     }
 }
