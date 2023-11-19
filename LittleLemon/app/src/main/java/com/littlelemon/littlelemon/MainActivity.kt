@@ -68,15 +68,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun saveMenuItems(menuItems: List<MenuItemNetwork>) {
-        val menuItemsRoom = menuItems.map {
-            MenuItemRoom(
-                id = it.id,
-                title = it.title,
-                description = it.description,
-                price = it.price,
-                image = it.image,
-                category = it.category,
-            )
+        val menuItemsRoom: List<MenuItemRoom> = menuItems.map {
+           it.toMenuItemRoom()
         }
         database.insertAllMenuItems(menuItemsRoom)
     }

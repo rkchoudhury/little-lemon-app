@@ -1,5 +1,6 @@
 package com.littlelemon.littlelemon.networks
 
+import com.littlelemon.littlelemon.databases.MenuItemRoom
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -21,11 +22,20 @@ data class MenuItemNetwork(
     val description: String,
 
     @SerialName("price")
-    val price: String,
+    val price: Double,
 
     @SerialName("image")
     val image: String,
 
     @SerialName("category")
     val category: String,
-)
+) {
+    fun toMenuItemRoom() = MenuItemRoom(
+        id,
+        title,
+        description,
+        price,
+        image,
+        category
+    )
+}
