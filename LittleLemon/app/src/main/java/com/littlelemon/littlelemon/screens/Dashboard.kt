@@ -14,8 +14,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -42,11 +45,21 @@ fun Dashboard(navController: NavHostController, context: Context) {
     val databaseInstance by lazy { AppDatabaseInstance(context) }
     val menuItems by databaseInstance.getMenuItems().observeAsState(emptyList())
 
+    val (searchPhrase, setSearchPhrase) = remember {
+        mutableStateOf("")
+    }
+
+    var filteredItems = menuItems
+
+    if (searchPhrase.isNotEmpty()) {
+        filteredItems = menuItems.filter { it.title.contains(searchPhrase, ignoreCase = true) }
+    }
+
     Column {
         HeaderView(navController)
-        BannerView()
+        BannerView(searchPhrase, setSearchPhrase)
         CategorySection()
-        MenuItemList(menuItems)
+        MenuItemList(filteredItems)
     }
 }
 
@@ -79,7 +92,7 @@ fun HeaderView(navController: NavHostController) {
 }
 
 @Composable
-fun BannerView() {
+fun BannerView(searchPhrase: String, setSearchPhrase: (String) -> Unit) {
     Column(
         modifier = Modifier
             .background(LittleLemonColor.green)
@@ -128,20 +141,16 @@ fun BannerView() {
                 alignment = Alignment.CenterEnd,
             )
         }
-        TextInputView()
+        TextInputView(searchPhrase, setSearchPhrase)
     }
 }
 
 @Composable
-fun TextInputView() {
-    var searchPhrase by remember {
-        mutableStateOf("")
-    }
-
+fun TextInputView(searchPhrase: String, setSearchPhrase: (String) -> Unit) {
     TextField(
         value = searchPhrase,
         onValueChange = {
-            searchPhrase = it
+            setSearchPhrase(it)
         },
         singleLine = true,
         modifier = Modifier
