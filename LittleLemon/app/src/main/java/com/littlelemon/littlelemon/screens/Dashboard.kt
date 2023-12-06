@@ -49,16 +49,24 @@ fun Dashboard(navController: NavHostController, context: Context) {
         mutableStateOf("")
     }
 
+    val (category, setCategory) = remember {
+        mutableStateOf("")
+    }
+
     var filteredItems = menuItems
 
+    if (category.isNotEmpty()) {
+        filteredItems = menuItems.filter { it.category == category }
+    }
+
     if (searchPhrase.isNotEmpty()) {
-        filteredItems = menuItems.filter { it.title.contains(searchPhrase, ignoreCase = true) }
+        filteredItems = filteredItems.filter { it.title.contains(searchPhrase, ignoreCase = true) }
     }
 
     Column {
         HeaderView(navController)
         BannerView(searchPhrase, setSearchPhrase)
-        CategorySection()
+        CategorySection(category, setCategory)
         MenuItemList(filteredItems)
     }
 }
@@ -157,13 +165,13 @@ fun TextInputView(searchPhrase: String, setSearchPhrase: (String) -> Unit) {
             .fillMaxWidth()
             .padding(10.dp, 15.dp, 10.dp, 0.dp)
             .background(LittleLemonColor.white),
-        placeholder = { "Enter search phrases" },
+        placeholder = { Text(text = "Enter search phrases") },
         leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "") }
     )
 }
 
 @Composable
-fun CategorySection() {
+fun CategorySection(selectedCategory: String, setCategory: (String) -> Unit) {
     Column(modifier = Modifier.padding(20.dp, 10.dp)) {
         Text(
             text = stringResource(id = R.string.order_delivery).uppercase(),
@@ -172,7 +180,16 @@ fun CategorySection() {
         )
         LazyRow(contentPadding = PaddingValues(0.dp, 15.dp, 20.dp, 15.dp)) {
             items(Categories) { eachCategory ->
-                CategoryItem(label = eachCategory) {}
+                CategoryItem(
+                    label = eachCategory,
+                    isSelectedItem = eachCategory == selectedCategory
+                ) {
+                    if (eachCategory == selectedCategory) {
+                        setCategory("")
+                    } else {
+                        setCategory(eachCategory)
+                    }
+                }
             }
         }
     }

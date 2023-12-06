@@ -16,7 +16,13 @@ import androidx.compose.ui.unit.sp
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
-fun CategoryItem(label: String, onPress: () -> Unit) {
+fun CategoryItem(label: String, isSelectedItem: Boolean, onPress: () -> Unit) {
+    val selectedColor = if (isSelectedItem) {
+        LittleLemonColor.pink
+    } else {
+        LittleLemonColor.cloud
+    }
+
     Box(
         modifier = Modifier
             .padding(0.dp, 0.dp, 15.dp, 0.dp)
@@ -29,7 +35,7 @@ fun CategoryItem(label: String, onPress: () -> Unit) {
             fontWeight = FontWeight.Bold,
             color = LittleLemonColor.green,
             modifier = Modifier
-                .background(LittleLemonColor.cloud)
+                .background(selectedColor)
                 .padding(10.dp)
         )
     }
@@ -38,5 +44,5 @@ fun CategoryItem(label: String, onPress: () -> Unit) {
 @Composable
 @Preview(showSystemUi = true)
 fun PreviewCategoryItem() {
-    CategoryItem("Mains") {}
+    CategoryItem("Mains", true) {}
 }
