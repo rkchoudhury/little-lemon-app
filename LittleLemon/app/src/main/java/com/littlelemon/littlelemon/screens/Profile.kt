@@ -1,12 +1,14 @@
 package com.littlelemon.littlelemon.screens
 
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,10 +35,17 @@ fun Profile(navController: NavHostController, applicationContext: Context) {
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(0.dp, 20.dp),
+                .padding(0.dp, 10.dp, 0.dp, 20.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
+                Image(
+                    painter = painterResource(id = R.drawable.little_lemon_logo),
+                    contentDescription = "little_lemon_logo",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .size(40.dp)
+                )
                 LabelRow(
                     label = stringResource(id = R.string.full_name),
                     value = "$firstName $lastName"
