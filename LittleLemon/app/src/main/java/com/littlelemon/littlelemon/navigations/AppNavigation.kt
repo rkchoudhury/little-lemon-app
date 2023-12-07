@@ -13,7 +13,9 @@ import com.littlelemon.littlelemon.screens.Profile
 @Composable
 fun AppNavigation(context: Context) {
     val navController: NavHostController = rememberNavController()
-    val startDestination: String =  OnBoarding.route
+
+    val hasUserData = hasUserDataInSharedPreferences(context)
+    val startDestination: String = if (hasUserData) Dashboard.route else OnBoarding.route
 
     NavHost(navController = navController, startDestination) {
         composable(OnBoarding.route) {
@@ -28,4 +30,11 @@ fun AppNavigation(context: Context) {
             Profile(navController, context)
         }
     }
+}
+
+@Composable
+fun hasUserDataInSharedPreferences(context: Context): Boolean {
+    val sharedPreferences = context.getSharedPreferences("LittleLemon", Context.MODE_PRIVATE)
+    val email = sharedPreferences.getString("email", "") ?: ""
+    return email.isNotBlank()
 }
