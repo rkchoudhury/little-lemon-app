@@ -15,6 +15,7 @@ import com.littlelemon.littlelemon.navigations.AppNavigation
 import com.littlelemon.littlelemon.networks.MenuItemNetwork
 import com.littlelemon.littlelemon.networks.MenuNetwork
 import com.littlelemon.littlelemon.ui.theme.LittleLemonTheme
+import com.littlelemon.littlelemon.utils.isDeviceConnectedToInternet
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
@@ -50,9 +51,19 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (database.isEmptyMenuItems()) {
-                val menuItems = fetchMenu()
-                Log.d("LITTLE_LEMON", "onCreate: fetched menu items of length ${menuItems.size}")
-                saveMenuItems(menuItems)
+                if (isDeviceConnectedToInternet(applicationContext)) {
+                    val menuItems = fetchMenu()
+                    Log.d(
+                        "LITTLE_LEMON",
+                        "onCreate: fetched menu items of length ${menuItems.size}"
+                    )
+                    saveMenuItems(menuItems)
+                } else {
+                    Log.d(
+                        "LITTLE_LEMON",
+                        "Error: Internet is un-available. Unable to fetch menu list"
+                    )
+                }
             } else {
                 Log.d("LITTLE_LEMON", "onCreate: menu items are already there in the db")
             }

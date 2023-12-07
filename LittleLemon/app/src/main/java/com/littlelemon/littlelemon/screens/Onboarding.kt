@@ -2,6 +2,7 @@ package com.littlelemon.littlelemon.screens
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,6 +24,7 @@ import com.littlelemon.littlelemon.R
 import com.littlelemon.littlelemon.components.LittleLemonButton
 import com.littlelemon.littlelemon.components.LittleLemonDialog
 import com.littlelemon.littlelemon.components.LittleLemonTextInput
+import com.littlelemon.littlelemon.helpers.validateRegistrationData
 import com.littlelemon.littlelemon.navigations.Dashboard
 import com.littlelemon.littlelemon.navigations.OnBoarding
 import com.littlelemon.littlelemon.ui.theme.LittleLemonColor
@@ -99,14 +101,23 @@ fun Onboarding(navController: NavHostController, applicationContext: Context) {
                 LittleLemonButton(
                     label = stringResource(id = R.string.register), isEnabled = !isButtonDisabled,
                     onPress = {
-                        showDialog = true
+                        if (validateRegistrationData(firstName, lastName, email)) {
+                            showDialog = true
 //                        sharedPreferences.edit().putString("first_name", firstName)
 //                            .putString("last_name", lastName).putString("email", email).apply()
 
-                        sharedPreferences.edit(commit = true) {
-                            putString("first_name", firstName)
-                            putString("last_name", lastName)
-                            putString("email", email)
+                            sharedPreferences.edit(commit = true) {
+                                putString("first_name", firstName)
+                                putString("last_name", lastName)
+                                putString("email", email)
+                            }
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "Invalid Details, Please try again",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
                         }
                     },
                 )
