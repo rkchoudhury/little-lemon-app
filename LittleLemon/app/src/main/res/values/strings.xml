@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Little Lemon</string>
+
+    <string name="on_boarding_know_you">Let\'s get to know you</string>
+    <string name="personal_information">Personal Information</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="registration_successful">"Registration is successful."</string>
+    <string name="registration_unsuccessful">"Registration unsuccessful. Please retry again."</string>
+
+    <string name="okay">Okay</string>
+    <string name="register">Register</string>
+    <string name="logout">Logout</string>
+
+    <string name="restaurant_name">Little Lemon</string>
+    <string name="restaurant_city">Chicago</string>
+    <string name="restaurant_desc">We are a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist</string>
+    <string name="order_delivery">Order for delivery!</string>
+
+</resources>
