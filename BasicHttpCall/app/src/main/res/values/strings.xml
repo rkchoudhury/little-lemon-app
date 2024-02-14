@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">LittleLemon</string>
-    <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_activity_menu_auto_call">MenuAutoCallActivity</string>
-</resources>

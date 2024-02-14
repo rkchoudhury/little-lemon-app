@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">SharedPreferencesExample</string>
-    <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_activity_tip">TipActivity</string>
-</resources>
